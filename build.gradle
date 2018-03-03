@@ -1,0 +1,63 @@
+group 'org.marker'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+
+ext {
+    jarName = project.name
+    mainClassName = 'org.marker.certificate.Main'
+    finagleVersion = '6.33.0'//注意: ' 与 "
+}
+
+repositories {
+    maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.apache.commons:commons-lang3:3.6",
+            "commons-beanutils:commons-beanutils:1.9.3",
+            "com.j256.ormlite:ormlite-jdbc:4.48",
+            "org.slf4j:slf4j-log4j12:1.6.1",
+            'com.hynnet:jacob:1.18'
+    // https://mvnrepository.com/artifact/com.alibaba/druid
+    compile group: 'com.alibaba', name: 'druid', version: '1.1.8'
+
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.21.0.1'
+// https://mvnrepository.com/artifact/org.apache.poi/poi
+    compile group: 'org.apache.poi', name: 'poi', version: '3.14'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.14'
+    compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '3.14'
+// https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+// https://mvnrepository.com/artifact/net.sf.jacob-project/jacob
+    compile group: 'net.sf.jacob-project', name: 'jacob', version: '1.14.3'
+
+
+    // https://mvnrepository.com/artifact/org.jfree/jcommon
+    compile group: 'org.jfree', name: 'jcommon', version: '1.0.24'
+// https://mvnrepository.com/artifact/com.toedter/jcalendar
+    compile group: 'com.toedter', name: 'jcalendar', version: '1.4'
+
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+
+jar {
+    from {
+        //添加依懒到打包文件
+        //configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtime.collect{zipTree(it)}
+    }
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
