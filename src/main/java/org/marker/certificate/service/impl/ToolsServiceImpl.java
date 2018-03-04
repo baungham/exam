@@ -6,6 +6,7 @@ package org.marker.certificate.service.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.marker.certificate.bean.ExamSience;
 import org.marker.certificate.bean.PrinterQueue;
+import org.marker.certificate.bean.Tmp;
 import org.marker.certificate.dao.DaoEngine;
 import org.marker.certificate.dao.mapper.ObjectMapper;
 import org.marker.certificate.service.ToolsService;
@@ -68,11 +69,11 @@ public class ToolsServiceImpl implements ToolsService {
         // 查询考试
         if(1 == queue.getType()){// 通知单
             StringBuilder sql2 = new StringBuilder("select b.name, e.* from t_exam_sience e left join t_exam b on b.id = e.examId");
-            sql2.append(" where 1=1 ").append(sqlExt);
+            sql2.append(" where 1=1 ").append(sqlExt).append(" order by b.sortNum");
             list = dao.queryForList(sql2.toString(), new ObjectMapper.MapperExamSience(),  params.toArray() );
         } else {// 汇总单
             StringBuilder sql2 = new StringBuilder("select b.name, e.* from t_exam_sience e left join t_exam b on b.id = e.examId");
-            sql2.append(" where 1=1 ").append(sqlExt);
+            sql2.append(" where 1=1 ").append(sqlExt).append(" order by b.sortNum");
             list = dao.queryForList(sql2.toString(), new ObjectMapper.MapperExamSience(),params.toArray() );
         }
          queue.setExamSiences(list);
@@ -157,6 +158,40 @@ public class ToolsServiceImpl implements ToolsService {
         //  写入到未打印记录
         boolean status = dao.update(sql.toString(),params.toArray());// 批量提交打印到队列
         logger.info("status = {}", status);
+    }
+
+    @Override
+    public List<PrinterQueue> fetchTmpQueue() {
+
+        List<PrinterQueue> queues = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM t_tmp");
+        List<Tmp> tmps = dao.queryForList(sql.toString(), new ObjectMapper.MapperTmp());
+        StringBuilder sql1 = new StringBuilder("select b.name, e.* from t_exam_sience e left join t_exam b on b.id = e.examId where studentNo = ? LIMIT 3 order by b.sortNum");
+        StringBuilder sql2 = new StringBuilder("select b.name, e.* from t_exam_sience e left join t_exam b on b.id = e.examId where studentNo = ? order by b.sortNum");
+        tmps.forEach(e -> {
+            PrinterQueue queue = new PrinterQueue();
+            queue.setGradeName("2015");
+            queue.setClassName(e.getClassName());
+            queue.setStudentName(e.getName());
+            queue.setStudentNo(e.getStudentNo());
+            queue.setTime("2018-3-4");
+
+            List<ExamSience> examSiences = new ArrayList<>();
+            // 原学号
+            List<Object> param1 = new ArrayList<>();
+            param1.add(e.getOldStudentNo());
+            examSiences.addAll(dao.queryForList(sql1.toString(), new ObjectMapper.MapperExamSience(), param1.toArray()));
+
+            List<Object> param2 = new ArrayList<>();
+            param2.add(e.getStudentNo());
+            examSiences.addAll(dao.queryForList(sql2.toString(), new ObjectMapper.MapperExamSience(), param2.toArray()));
+            queue.setExamSiences(examSiences);
+
+            queues.add(queue);
+        });
+
+        return queues;
     }
 
 

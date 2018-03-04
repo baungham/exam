@@ -13,6 +13,7 @@ CREATE TABLE t_exam
     semesterId INTEGER,
     gradeName TEXT,
     createTime TEXT,
+    sortNum INTEGER,
     count INTEGER
 );
 CREATE TABLE t_grade

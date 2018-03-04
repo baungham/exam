@@ -32,6 +32,7 @@ public class ImportExamDialog extends JDialog {
 	// 窗口高度
 	private int D_HEIGHT = 200;
 	private JTextField textField;
+	private JTextField sortNumTextField;
 
     // 城市
     private JComboBox comboBox;
@@ -122,8 +123,19 @@ public class ImportExamDialog extends JDialog {
         comboBox1.setBounds(107, 89, 140, 21);
         contentPanel.add(comboBox1);
 
+		JLabel label_3 = new JLabel("排序号：");
+		label_3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		label_3.setBounds(29, 62, 68, 15);
+		contentPanel.add(label_3);
 
-        {
+		sortNumTextField = new JTextField();
+		sortNumTextField.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		sortNumTextField.setBounds(104, 119, 148, 21);
+		contentPanel.add(sortNumTextField);
+		sortNumTextField.setColumns(10);
+
+
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -137,9 +149,11 @@ public class ImportExamDialog extends JDialog {
                         Grade grade = (Grade) comboBox.getSelectedItem();
 
                         String examName = textField.getText();
+                        String sortNum = sortNumTextField.getText();
+
                         Semester semester =  (Semester)comboBox1.getSelectedItem();
 
-                        panel.dealwith(grade, semester, examName);
+                        panel.dealwith(grade, semester, examName, Integer.valueOf(sortNum));
 
 						if(true){
 							setVisible(false);

@@ -233,6 +233,7 @@ public final class ObjectMapper {
             enter.setId(rs.getInt("id"));
             enter.setSemesterId(rs.getInt("semesterId"));
             enter.setName(rs.getString("name"));
+            enter.setSortNum(rs.getInt("sortNum"));
             enter.setGradeName(rs.getString("gradeName"));
             enter.setCreateTime(rs.getDate("createTime"));
             return enter;
@@ -317,4 +318,16 @@ public final class ObjectMapper {
 			return enter;
 		}
     }
+
+	public static class MapperTmp implements RowMapper<Tmp> {
+		@Override
+		public Tmp fetch(ResultSet rs, int index) throws SQLException {
+			Tmp enter = new Tmp();
+			enter.setName(rs.getString("name"));
+			enter.setClassName(rs.getString("className"));
+			enter.setStudentNo(rs.getString("studentNo"));
+			enter.setOldStudentNo(rs.getString("oldStudentNo"));
+			return enter;
+		}
+	}
 }

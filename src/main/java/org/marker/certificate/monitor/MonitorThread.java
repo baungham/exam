@@ -39,10 +39,22 @@ public class MonitorThread extends SuperThread {
 		try{ 
 			try {
 				Thread.sleep(500);
-			} catch (InterruptedException e) { 
+			} catch (InterruptedException e) {
 				log.info("停止监控线程!");
 				return;
 			}
+
+			/* 打印错误学生
+			List<PrinterQueue> queues = toolsService.fetchTmpQueue();
+			queues.forEach(e -> {
+				try {
+					String excelPath = ExcelTools.generateCollectExcel(e);
+					log.debug(excelPath);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			});*/
+
 			PrinterQueue one = toolsService.fetch();// 抓去一条打印数据
 			if(one != null){
 //				int logId = logService.save(certificate);// 记录打印日志
@@ -69,7 +81,7 @@ public class MonitorThread extends SuperThread {
 					}
                 }
 
-			} 
+			}
 		} catch (Exception e){
 			// 打印线程停止
 			PrinterQueuePanel.label_status.setText("停止"); 

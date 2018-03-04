@@ -100,7 +100,9 @@ public class DaoEngine {
 				if (rs != null && rs.next()) {
 					return rs.getInt(1);
 				}
-				rs.close();
+				if (rs != null) {
+					rs.close();
+				}
 			}
 			ps.close(); 
 		} catch (SQLException e) { 

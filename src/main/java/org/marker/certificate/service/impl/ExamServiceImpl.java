@@ -31,11 +31,12 @@ public class ExamServiceImpl implements ExamService {
     public ServiceMessage save(Exam entity) {
         entity.setCreateTime(new Date());
 
-        String sql = "INSERT INTO `t_exam`(name,semesterId, gradeName, createTime, count) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO `t_exam`(name,semesterId, gradeName, sortNum, createTime, count) VALUES(?,?,?,?,?)";
         Object[] params = new Object[]{
                 entity.getName(),
                 entity.getSemesterId(),
                 entity.getGradeName(),
+                entity.getSortNum(),
                 entity.getCreateTime(),
                 entity.getCount()
         };
@@ -49,8 +50,22 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public ServiceMessage update(Exam enterprise) {
-        return null;
+    public ServiceMessage update(Exam entity) {
+        String sql = "UPDATE `t_exam` set name = ?, semesterId = ?, gradeName = ?, sortNum = ?, count = ? WHERE id = ?";
+        Object[] params = new Object[]{
+                entity.getName(),
+                entity.getSemesterId(),
+                entity.getGradeName(),
+                entity.getSortNum(),
+                entity.getCount(),
+                entity.getId()
+        };
+        boolean succeed = dao.update(sql, params);
+
+        if (succeed) {
+            return new ServiceMessage(true, "修改成功!");
+        }
+        return new ServiceMessage(false, "修改失败!");
     }
 
     @Override

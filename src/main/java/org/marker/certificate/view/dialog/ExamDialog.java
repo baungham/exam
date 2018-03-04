@@ -1,13 +1,12 @@
 package org.marker.certificate.view.dialog;
 
-import org.marker.certificate.bean.Class;
 import org.marker.certificate.bean.Exam;
 import org.marker.certificate.bean.Grade;
+import org.marker.certificate.bean.Semester;
 import org.marker.certificate.bean.ServiceMessage;
-import org.marker.certificate.service.ClassService;
 import org.marker.certificate.service.ExamService;
 import org.marker.certificate.service.GradeService;
-import org.marker.certificate.view.panel.ClassPanel;
+import org.marker.certificate.service.impl.GradeServiceImpl;
 import org.marker.certificate.view.panel.ExamPanel;
 
 import javax.swing.*;
@@ -18,7 +17,7 @@ import java.awt.event.ActionListener;
 
 
 /**
- * 添加班级
+ * 添加考试场次
  * @author marker
  * @version 1.0
  */
@@ -36,12 +35,48 @@ public class ExamDialog extends JDialog {
 	// 窗口高度
 	private int D_HEIGHT = 337;
 	private JTextField textField;
-	private JEditorPane editorPane;
-    // 城市
+	private JTextField sortNumTextField;
+    // 年级
     private JComboBox comboBox;
+    // 学期
+	private JComboBox comboBox1;
+	// gradeService
+	private GradeService gradeService = new GradeServiceImpl();
+    private DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+    private DefaultComboBoxModel dcbm1 = new DefaultComboBoxModel();
 
+	private Exam exam;
 
+	public void setExam(Exam exam) {
+	    this.exam = exam;
+        Grade grade = new Grade();
+        grade.setName(exam.getGradeName());
+        grade.setCreateTime(exam.getCreateTime());
+        comboBox.setSelectedItem(grade);
+        textField.setText(exam.getName());
+        comboBox1.setSelectedItem(dcbm1.getElementAt(exam.getSemesterId() - 1));
+        sortNumTextField.setText(String.valueOf(exam.getSortNum()));
+    }
 
+	public void initDependentData() {
+		// 年级信息
+		java.util.List<Grade> list = gradeService.getAll();
+
+		for(Grade c : list){
+			dcbm.addElement(c);
+		}
+		comboBox.setModel(dcbm);
+
+		dcbm1.addElement(new Semester("第一学期",1));
+		dcbm1.addElement(new Semester("第二学期",2));
+		dcbm1.addElement(new Semester("第三学期",3));
+		dcbm1.addElement(new Semester("第四学期",4));
+		dcbm1.addElement(new Semester("第五学期",5));
+		dcbm1.addElement(new Semester("第六学期",6));
+		dcbm1.addElement(new Semester("学考成绩",7));
+		comboBox1.setModel(dcbm1);
+
+	}
 
 
 	/**
@@ -50,7 +85,8 @@ public class ExamDialog extends JDialog {
 	 * @param enterprisePanel
 	 */
 	public ExamDialog(final ExamPanel enterprisePanel, final ExamService service) {
-		setTitle("添加班级");
+
+		setTitle("修改考试");
 		this.setModal(true);
 		this.setResizable(false);//设置不可改变大小
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); 
@@ -67,42 +103,52 @@ public class ExamDialog extends JDialog {
 		contentPanel.setLayout(null);
 
 
-		JLabel label = new JLabel("班级名称：");
+		JLabel label = new JLabel("年级：");
 		label.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		label.setBounds(29, 34, 67, 15);
 		contentPanel.add(label);
 
+		comboBox = new JComboBox();
+		comboBox.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		comboBox.setBounds(107, 34, 97, 21);
+		contentPanel.add(comboBox);
+
+		JLabel label_1 = new JLabel("考试名称：");
+		label_1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		label_1.setBounds(29, 62, 68, 15);
+		contentPanel.add(label_1);
 
 		textField = new JTextField();
 		textField.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		textField.setBounds(100, 31, 148, 21);
+		textField.setBounds(107, 59, 148, 21);
+
 		contentPanel.add(textField);
 		textField.setColumns(10);
 
 
-        JLabel labelGrade = new JLabel("年级：");
-        labelGrade.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-        labelGrade.setBounds(29, 59, 67, 15);
-        contentPanel.add(labelGrade);
+		JLabel label_2 = new JLabel("学期：");
+		label_2.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		label_2.setBounds(29, 92, 68, 15);
+		contentPanel.add(label_2);
 
 
+		comboBox1 = new JComboBox();
+		comboBox1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		comboBox1.setBounds(107, 89, 140, 21);
 
-        comboBox = new JComboBox();
-        comboBox.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-        comboBox.setBounds(100, 59, 97, 21);
-        contentPanel.add(comboBox);
+		contentPanel.add(comboBox1);
 
+		JLabel label_3 = new JLabel("排序号：");
+		label_3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		label_3.setBounds(29, 119, 68, 15);
+		contentPanel.add(label_3);
 
+		sortNumTextField = new JTextField();
+		sortNumTextField.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		sortNumTextField.setBounds(107, 119, 148, 21);
 
-
-        JLabel label_1 = new JLabel("描述：");
-		label_1.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		label_1.setBounds(29, 92, 68, 15);
-		contentPanel.add(label_1);
-		
-		editorPane = new JEditorPane();
-		editorPane.setBounds(104, 89, 191, 70);
-		contentPanel.add(editorPane);
+		contentPanel.add(sortNumTextField);
+		sortNumTextField.setColumns(10);
 
 		{
 			JPanel buttonPane = new JPanel();
@@ -116,17 +162,19 @@ public class ExamDialog extends JDialog {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						Exam ee = new Exam();
-						ee.setName(textField.getText());
-
-
                         Grade grade = (Grade) comboBox.getSelectedItem();
-
-
+                        Semester semester =  (Semester)comboBox1.getSelectedItem();
+						ee.setId(exam.getId());
+						ee.setName(textField.getText());
+                        ee.setSemesterId(semester.getId());
+                        ee.setSortNum(Integer.valueOf(sortNumTextField.getText()));
+                        ee.setCount(exam.getCount());
+                        ee.setCreateTime(exam.getCreateTime());
                         ee.setGradeName(grade.getName());
 
 						
-						ServiceMessage msg = service.save(ee);
-						JOptionPane.showMessageDialog(null, msg.getMessage()); 
+						ServiceMessage msg = service.update(ee);
+						JOptionPane.showMessageDialog(null, msg.getMessage());
 						if(msg.isStatus()){
 							enterprisePanel.initData();
 							setVisible(false);
@@ -152,7 +200,7 @@ public class ExamDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-
+        initDependentData();
 
 	}
 
@@ -162,7 +210,7 @@ public class ExamDialog extends JDialog {
 	 */
 	public void reset() {
 		textField.setText("");
-		editorPane.setText("");
-		
+        sortNumTextField.setText("");
+
 	}
 }

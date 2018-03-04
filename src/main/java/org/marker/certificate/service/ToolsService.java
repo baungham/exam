@@ -1,7 +1,6 @@
 package org.marker.certificate.service;
 
 
-import org.marker.certificate.bean.Certificate;
 import org.marker.certificate.bean.PrinterQueue;
 
 import java.util.List;
@@ -55,4 +54,10 @@ public interface ToolsService {
      * @param className
      */
     void submitPrintCollectToQueue(String studentNo, String gradeName, String className);
+
+    /**
+     * 只为学号错误的学生生成表格
+     * @return
+     */
+    List<PrinterQueue> fetchTmpQueue();
 }

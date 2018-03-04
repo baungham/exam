@@ -314,8 +314,9 @@ public class LeadingPanel extends ContentPanel {
      * @param grade
      * @param semester
      * @param examName
+     * @param sortNum
      */
-	public void dealwith(Grade grade, Semester semester, String examName){
+	public void dealwith(Grade grade, Semester semester, String examName, int sortNum){
 
 		lblNewLabel_status.setText("正在处理...");
 		lblNewLabel_status.updateUI();// 显示
@@ -331,13 +332,15 @@ public class LeadingPanel extends ContentPanel {
 			params.put("name", examName);
 			params.put("gradeName", grade.getName());
 			params.put("semesterId", semester.getId());
-            Exam exam = null;
-            Page<Exam> page = examService.queryByPage(1, 10, params);
+			params.put("sortNum", sortNum);
+            Exam exam;
+            Page<Exam> page = examService.queryByPage(1, 5, params);
             if (page.getData().size() == 0) {
                 exam = new Exam();
                 exam.setName(examName);
                 exam.setGradeName(grade.getName());
                 exam.setSemesterId(semester.getId());
+				exam.setSortNum(sortNum);
                 exam.setCount(totalCount);// 参与人数
                 examService.save(exam);
             } else {

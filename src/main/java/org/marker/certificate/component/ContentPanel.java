@@ -58,12 +58,12 @@ public abstract class ContentPanel extends JPanel {
 	 * @return
 	 */
 	public int getSelectObjectId(JTable table,DefaultTableModel dtm){
-		int srow = table.getSelectedRow();// 获取选择的行
+		int row = table.getSelectedRow();// 获取选择的行
 		if(dtm.getRowCount() > 0){// 如果有数据
-			if(srow != -1){
+			if(row != -1){
 				Integer id = -1;
 				try{
-					id = (Integer)table.getValueAt(srow, 0);// 获取ID
+					id = (Integer)table.getValueAt(row, 0);// 获取ID
 				}catch(Exception e){ }
 				return id;
 			}

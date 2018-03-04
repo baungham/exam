@@ -1,18 +1,11 @@
 package org.marker.certificate.view.panel;
 
-import org.marker.certificate.bean.Class;
 import org.marker.certificate.bean.Exam;
 import org.marker.certificate.bean.Page;
 import org.marker.certificate.bean.ServiceMessage;
 import org.marker.certificate.component.ContentPanel;
-import org.marker.certificate.service.ClassService;
 import org.marker.certificate.service.ExamService;
-import org.marker.certificate.service.GradeService;
-import org.marker.certificate.service.impl.ClassServiceImpl;
 import org.marker.certificate.service.impl.ExamServiceImpl;
-import org.marker.certificate.service.impl.GradeServiceImpl;
-import org.marker.certificate.view.EnterprisePanel;
-import org.marker.certificate.view.dialog.ClassDialog;
 import org.marker.certificate.view.dialog.ExamDialog;
 
 import javax.swing.*;
@@ -21,6 +14,8 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -60,10 +55,10 @@ public class ExamPanel extends ContentPanel {
 
 
     //
-	private DefaultTableModel dtm = new DefaultTableModel( new Object[][] { }, new String[] { "ID", "考试名称", "年级", "学期",  "创建时间"}) {
+	private DefaultTableModel dtm = new DefaultTableModel( new Object[][] { }, new String[] { "ID", "考试名称", "年级", "学期", "考试人数", "排序", "创建时间"}) {
 		private static final long serialVersionUID = -6985108346052830790L;
 		java.lang.Class<?>[] columnTypes = new java.lang.Class[] {
-		 	String.class,  Object.class, Object.class, Object.class, Object.class
+		 	String.class,  Object.class, Object.class, Object.class, Object.class, Object.class, Object.class
 		};
 
 
@@ -202,10 +197,28 @@ public class ExamPanel extends ContentPanel {
 		
 		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setToolTipText("班级管理");
+		table.setToolTipText("考试管理");
 		table.setBorder(null);
 		table.setModel(dtm);
 
+		// 加入鼠标点击事件
+		table.addMouseListener(new MouseAdapter(){    //鼠标事件
+			public void mouseClicked(MouseEvent e){
+//				if (e.getClickCount() == 2) {
+					Exam exam = new Exam();
+					int selectedRow = table.getSelectedRow(); //获得选中行索引
+					exam.setId(Integer.valueOf(dtm.getValueAt(selectedRow, 0).toString()));
+					exam.setName(dtm.getValueAt(selectedRow, 1).toString());
+					exam.setGradeName(dtm.getValueAt(selectedRow, 2).toString());
+					exam.setSemesterId(Integer.valueOf(dtm.getValueAt(selectedRow, 3).toString()));
+					exam.setCount(Integer.valueOf(dtm.getValueAt(selectedRow, 4).toString()));
+					exam.setSortNum(Integer.valueOf(dtm.getValueAt(selectedRow, 5).toString()));
+					dialog.setExam(exam);
+					dialog.setVisible(true);
+//				}
+
+			}
+		});
 
 
 		/* 初始化鼠标右键菜单 */
@@ -275,6 +288,8 @@ public class ExamPanel extends ContentPanel {
 					e.getName(),
 					e.getGradeName(),
 					e.getSemesterId(),
+					e.getCount(),
+					e.getSortNum(),
 					e.getCreateTime()
 					}
 			);
