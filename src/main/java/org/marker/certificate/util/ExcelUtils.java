@@ -177,7 +177,7 @@ public class ExcelUtils {
         if(row == null){
             row = sheet.createRow(index);
         }
-        row.setHeight((short) 600);
+        row.setHeight((short) 300);
         return row;
     }
 

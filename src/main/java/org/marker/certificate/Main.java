@@ -129,9 +129,9 @@ public class Main {
 	 * Create the application.
 	 */
 	public Main() {
-		initializeMonitorThread();// 初始化监控线程
 		initialize();
 		initSystemTray();
+		initializeMonitorThread();// 初始化监控线程
 		startTime();// 启动动态时间显示
 	}
 

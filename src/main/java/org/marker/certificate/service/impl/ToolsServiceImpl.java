@@ -49,18 +49,14 @@ public class ToolsServiceImpl implements ToolsService {
         StringBuilder sqlExt = new StringBuilder();
 
         List<Object> params = new ArrayList<>();
-        if(!StringUtils.isBlank(queue.getGradeName())){
-            sqlExt.append(" and e.gradeName=? ");
-            params.add(queue.getGradeName());
-        }
+//        if(!StringUtils.isBlank(queue.getGradeName())){
+//            sqlExt.append(" and e.gradeName=? ");
+//            params.add(queue.getGradeName());
+//        }
 
         if(!StringUtils.isBlank(queue.getStudentNo())){
             sqlExt.append(" and e.studentNo = ?  ");
             params.add(queue.getStudentNo());
-        }
-        if(!StringUtils.isBlank(queue.getClassName())){
-            sqlExt.append(" and e.className=?  ");
-            params.add(queue.getClassName());
         }
         if(queue.getSemesterId() > 0){
             sqlExt.append(" and e.semesterId=?  ");

@@ -1,27 +1,12 @@
 package org.marker.certificate.monitor;
 
 import java.awt.Color;
-import java.awt.print.PageFormat;
-import java.awt.print.Paper;
-import java.awt.print.PrinterJob;
-import java.util.List;
-
-import org.apache.poi.ss.usermodel.PrintSetup;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.marker.certificate.bean.Certificate;
 import org.marker.certificate.bean.PrinterQueue;
-import org.marker.certificate.printer.PrintTextObject;
-import org.marker.certificate.printer.PrinterUtil;
-import org.marker.certificate.printer.QSPrintable;
-import org.marker.certificate.service.ICertificateService;
 import org.marker.certificate.service.IPrinterLogService;
 import org.marker.certificate.service.ToolsService;
-import org.marker.certificate.service.impl.CertificateServiceImpl;
 import org.marker.certificate.service.impl.PrinterLogServiceImpl;
 import org.marker.certificate.service.impl.ToolsServiceImpl;
 import org.marker.certificate.util.ExcelTools;
-import org.marker.certificate.util.ExcelUtils;
 import org.marker.certificate.view.PrinterQueuePanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +24,7 @@ public class MonitorThread extends SuperThread {
 
 	private Logger log = LoggerFactory.getLogger(MonitorThread.class);
 
-	private ToolsService toolsService  ;
+	private ToolsService toolsService;
 	
 	// 打印日志
 	private IPrinterLogService logService;
@@ -72,24 +57,17 @@ public class MonitorThread extends SuperThread {
                     System.out.println(excelPath);
 					// TODO 传送给打印机
 					try {
-						ExcelTools.print(excelPath);
+//						ExcelTools.print(excelPath);
 
 					} catch (Exception e1) {
 						log.error("{}打印失败....", excelPath);
 						log.error("打印调用失败....", e1);
-						return;
+//						return;
 					} finally {
 						// 修改打印状态
 						toolsService.updateComplete(one.getId());
-
 					}
                 }
-
-
-
-
-
-
 
 			} 
 		} catch (Exception e){

@@ -408,7 +408,6 @@ public class ExcelTools {
         font.setFontHeightInPoints((short) 14);// 设置字体大小
         font.setBold(true);
         cell.getCellStyle().setFont(font);
-
         OutputStream outputStream = new FileOutputStream(outfilePath);
         wb.write(outputStream);
         outputStream.flush();
