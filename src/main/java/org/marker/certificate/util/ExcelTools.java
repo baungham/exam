@@ -303,7 +303,7 @@ public class ExcelTools {
         cell.getCellStyle().setFont(font18);
 
         // 学号
-        cell =  ExcelUtils.sheetAddCell(20, one.getStudentNo() + " ",row1, false);
+        cell =  ExcelUtils.sheetAddCell(19, one.getStudentNo() + " ",row1, false);
 //        ExcelUtils.clearBorder(wb, cell);
         cell.getCellStyle().setFont(font18);
 
@@ -347,27 +347,27 @@ public class ExcelTools {
 
                     ExcelUtils.sheetAddCell(14, examSience.getScienceTotalAchievement() == 0 ? "" : examSience.getScienceTotalAchievement(),row).getCellStyle().setFont(font1); // 理6科
                     ExcelUtils.sheetAddCell(15, examSience.getScienceTotalAchievementOrder() ,row).getCellStyle().setFont(font1);
-                    ExcelUtils.sheetAddCell(16, examSience.getScienceClassOrder() ,row).getCellStyle().setFont(font1); //理6班次
+//                    ExcelUtils.sheetAddCell(16, examSience.getScienceClassOrder() ,row).getCellStyle().setFont(font1); //理6班次
 
-                    ExcelUtils.sheetAddCell(17,  examSience.getPolitics() == 0 ? "" : examSience.getPolitics() ,row).getCellStyle().setFont(font1);// 政治
-                    ExcelUtils.sheetAddCell(18,  examSience.getPoliticsOrder() ,row).getCellStyle().setFont(font1);// 政治
-                    ExcelUtils.sheetAddCell(19,  examSience.getHistory() == 0 ? "" : examSience.getHistory() ,row).getCellStyle().setFont(font1);// 历史
-                    ExcelUtils.sheetAddCell(20,  examSience.getHistoryOrder() ,row).getCellStyle().setFont(font1);// 历史
-                    ExcelUtils.sheetAddCell(21, examSience.getGeography() == 0 ? "" : examSience.getGeography() ,row).getCellStyle().setFont(font1);// 地理
-                    ExcelUtils.sheetAddCell(22, examSience.getGeographyOrder() ,row).getCellStyle().setFont(font1);
-                    ExcelUtils.sheetAddCell(23, examSience.getLiteralTotalAchievement() == 0 ? "" : examSience.getLiteralTotalAchievement() ,row).getCellStyle().setFont(font1); //文6科
-                    ExcelUtils.sheetAddCell(24, examSience.getLiteralTotalAchievementOrder() ,row).getCellStyle().setFont(font1);
-                    ExcelUtils.sheetAddCell(25, examSience.getLiteralClassOrder() ,row).getCellStyle().setFont(font1); //文6班次
-                    ExcelUtils.sheetAddCell(26, examSience.getNineTotal() == 0 ? "" : examSience.getNineTotal(),row).getCellStyle().setFont(font1); //文6班次
-                    ExcelUtils.sheetAddCell(27, examSience.getNineTotalOrder()  ,row).getCellStyle().setFont(font1); //文6班次
-                    ExcelUtils.sheetAddCell(28, "" ,row).getCellStyle().setFont(font1); //班次
-                    ExcelUtils.sheetAddCell(29, examSience.getInfomation() == 0 ? "" : examSience.getInfomation() ,row).getCellStyle().setFont(font1); //文6班次
-                    ExcelUtils.sheetAddCell(30, examSience.getInfomationOrder() ,row).getCellStyle().setFont(font1); //文6班次
-                    ExcelUtils.sheetAddCell(31, examSience.getGeneral() == 0 ? "" : examSience.getGeneral(),row).getCellStyle().setFont(font1); //文6班次
-                    ExcelUtils.sheetAddCell(32, examSience.getGeneralOrder() ,row).getCellStyle().setFont(font1); //文6班次
-                    ExcelUtils.sheetAddCell(33, examSience.getSports() == 0 ? "" : examSience.getSports(),row).getCellStyle().setFont(font1); //文6班次
-                    ExcelUtils.sheetAddCell(34, examSience.getArt() == 0 ? "" : examSience.getArt() ,row).getCellStyle().setFont(font1); //文6班次
-                    ExcelUtils.sheetAddCell(35, examSience.getMusic() == 0 ? "" : examSience.getMusic(),row).getCellStyle().setFont(font1); //文6班次
+                    ExcelUtils.sheetAddCell(16,  examSience.getPolitics() == 0 ? "" : examSience.getPolitics() ,row).getCellStyle().setFont(font1);// 政治
+                    ExcelUtils.sheetAddCell(17,  examSience.getPoliticsOrder() ,row).getCellStyle().setFont(font1);// 政治
+                    ExcelUtils.sheetAddCell(18,  examSience.getHistory() == 0 ? "" : examSience.getHistory() ,row).getCellStyle().setFont(font1);// 历史
+                    ExcelUtils.sheetAddCell(19,  examSience.getHistoryOrder() ,row).getCellStyle().setFont(font1);// 历史
+                    ExcelUtils.sheetAddCell(20, examSience.getGeography() == 0 ? "" : examSience.getGeography() ,row).getCellStyle().setFont(font1);// 地理
+                    ExcelUtils.sheetAddCell(21, examSience.getGeographyOrder() ,row).getCellStyle().setFont(font1);
+                    ExcelUtils.sheetAddCell(22, examSience.getLiteralTotalAchievement() == 0 ? "" : examSience.getLiteralTotalAchievement() ,row).getCellStyle().setFont(font1); //文6科
+                    ExcelUtils.sheetAddCell(23, examSience.getLiteralTotalAchievementOrder() ,row).getCellStyle().setFont(font1);
+//                    ExcelUtils.sheetAddCell(24, examSience.getLiteralClassOrder() ,row).getCellStyle().setFont(font1); //文6班次
+                    ExcelUtils.sheetAddCell(24, examSience.getNineTotal() == 0 ? "" : examSience.getNineTotal(),row).getCellStyle().setFont(font1); //文6班次
+                    ExcelUtils.sheetAddCell(25, examSience.getNineTotalOrder()  ,row).getCellStyle().setFont(font1); //文6班次
+//                    ExcelUtils.sheetAddCell(27, "" ,row).getCellStyle().setFont(font1); //班次
+                    ExcelUtils.sheetAddCell(26, examSience.getInfomation() == 0 ? "" : examSience.getInfomation() ,row).getCellStyle().setFont(font1); //文6班次
+                    ExcelUtils.sheetAddCell(27, examSience.getInfomationOrder() ,row).getCellStyle().setFont(font1); //文6班次
+                    ExcelUtils.sheetAddCell(28, examSience.getGeneral() == 0 ? "" : examSience.getGeneral(),row).getCellStyle().setFont(font1); //文6班次
+                    ExcelUtils.sheetAddCell(29, examSience.getGeneralOrder() ,row).getCellStyle().setFont(font1); //文6班次
+//                    ExcelUtils.sheetAddCell(32, examSience.getSports() == 0 ? "" : examSience.getSports(),row).getCellStyle().setFont(font1); //文6班次
+//                    ExcelUtils.sheetAddCell(33, examSience.getArt() == 0 ? "" : examSience.getArt() ,row).getCellStyle().setFont(font1); //文6班次
+//                    ExcelUtils.sheetAddCell(34, examSience.getMusic() == 0 ? "" : examSience.getMusic(),row).getCellStyle().setFont(font1); //文6班次
                 }
             }
         }

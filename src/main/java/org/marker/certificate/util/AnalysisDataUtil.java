@@ -108,7 +108,7 @@ public class AnalysisDataUtil {
         entity.setScienceClassOrder(getString(data.get(17)));
 
         entity.setPolitics(getInt(data.get(18)));
-        entity.setPoliticsOrder(getString(data.get(18)));
+        entity.setPoliticsOrder(getString(data.get(19)));
         entity.setHistory(getInt(data.get(20)));
         entity.setHistoryOrder(getString(data.get(21)));
         entity.setGeography(getInt(data.get(22)));

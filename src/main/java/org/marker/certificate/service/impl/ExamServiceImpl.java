@@ -1,4 +1,5 @@
-package org.marker.certificate.service.impl;/**
+package org.marker.certificate.service.impl;
+/**
  * Created by marker on 2018/2/24.
  */
 
@@ -31,7 +32,7 @@ public class ExamServiceImpl implements ExamService {
     public ServiceMessage save(Exam entity) {
         entity.setCreateTime(new Date());
 
-        String sql = "INSERT INTO `t_exam`(name,semesterId, gradeName, sortNum, createTime, count) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO `t_exam`(name,semesterId, gradeName, sortNum, createTime, count) VALUES(?,?,?,?,?,?)";
         Object[] params = new Object[]{
                 entity.getName(),
                 entity.getSemesterId(),

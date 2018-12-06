@@ -125,7 +125,7 @@ public class ImportExamDialog extends JDialog {
 
 		JLabel label_3 = new JLabel("排序号：");
 		label_3.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-		label_3.setBounds(29, 62, 68, 15);
+		label_3.setBounds(29, 114, 68, 15);
 		contentPanel.add(label_3);
 
 		sortNumTextField = new JTextField();
